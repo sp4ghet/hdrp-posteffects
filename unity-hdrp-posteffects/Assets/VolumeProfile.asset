@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Value: 1000
   enableReflect:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,35 +120,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   blurSigma:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 100
   blurSize:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 25
   speed:
-    m_OverrideState: 0
+    m_OverrideState: 1
+    m_Value: 3
+  fastBlur:
+    m_OverrideState: 1
     m_Value: 1
   shiftSize:
-    m_OverrideState: 0
-    m_Value: 0.04
+    m_OverrideState: 1
+    m_Value: 0.199
+  shiftFbmOctaves:
+    m_OverrideState: 1
+    m_Value: 4
   manualShift:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   shiftValue:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.25, y: 0}
   cutoffAngle:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 125.02
   cutoffSharpness:
-    m_OverrideState: 0
-    m_Value: 15
+    m_OverrideState: 1
+    m_Value: 0
   cutoffCenter:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
+    m_OverrideState: 1
+    m_Value: {x: -0.4, y: 0}
+  chromabIntensity:
+    m_OverrideState: 1
+    m_Value: 0.015
 --- !u!114 &6396207251461516000
 MonoBehaviour:
   m_ObjectHideFlags: 3
