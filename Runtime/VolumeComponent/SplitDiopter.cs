@@ -20,9 +20,8 @@ namespace sp4ghet
         [Tooltip("Control the shifting speed")]
         public FloatParameter speed = new FloatParameter(1);
 
-
         [Tooltip("Make blur faster but less visually complex")]
-        public BoolParameter fastBlur = new BoolParameter(false);
+        public BoolParameter fastBlur = new BoolParameter(true);
 
         [Tooltip("The amount of shifting")]
         public ClampedFloatParameter shiftSize = new ClampedFloatParameter(0.04f, 0f, 0.5f);
@@ -44,10 +43,15 @@ namespace sp4ghet
         [Tooltip("Shift the center of the cutoff")]
         public Vector2Parameter cutoffCenter = new Vector2Parameter(Vector2.zero);
 
+        [Tooltip("Chromatic Aberration Intensity")]
+        public ClampedFloatParameter chromabIntensity = new ClampedFloatParameter(0f, 0f, 0.015f);
+
 
         Material m_Material;
         Material m_BlurMat;
         RTHandle m_BlurXBuffer, m_BlurYBuffer;
+
+        float m_ShaderTime = 0f;
 
         public bool IsActive()
         {
@@ -67,16 +71,16 @@ namespace sp4ghet
             internal static readonly int MainTex = Shader.PropertyToID("_MainTex");
             internal static readonly int BlurSourceTexture = Shader.PropertyToID("_Source");
             internal static readonly int BlurTexture = Shader.PropertyToID("_BlurTexture");
-
             internal static readonly int BlurSize = Shader.PropertyToID("_BlurSize");
             internal static readonly int SigmaSquared = Shader.PropertyToID("_SigmaSquared");
             internal static readonly int Angle = Shader.PropertyToID("_Angle");
-            internal static readonly int Speed = Shader.PropertyToID("_Speed");
             internal static readonly int ShiftOverride = Shader.PropertyToID("_ShiftOverride");
             internal static readonly int ShiftFbmOctaves = Shader.PropertyToID("_ShiftFbmOctaves");
             internal static readonly int ShiftSize = Shader.PropertyToID("_ShiftSize");
             internal static readonly int CutOffSharpness = Shader.PropertyToID("_CutOffSharpness");
             internal static readonly int CutOffCenter = Shader.PropertyToID("_CutOffCenter");
+            internal static readonly int ChromAbIntensity = Shader.PropertyToID("_ChromAbIntensity");
+            internal static readonly int ShaderTime = Shader.PropertyToID("_ShaderTime");
 
         }
 
@@ -136,12 +140,13 @@ namespace sp4ghet
                 HDUtils.DrawFullScreen(cmd, m_BlurMat, m_BlurYBuffer, shaderPassId: m_BlurMat.FindPass("Blur"));
             }
 
+            m_ShaderTime += Time.deltaTime * speed.value;
             m_Material.SetTexture(ShaderIDs.MainTex, source);
             m_Material.SetTexture(ShaderIDs.BlurTexture, m_BlurYBuffer.rt);
             m_Material.SetFloat(ShaderIDs.Intensity, intensity.value);
             float angle = cutoffAngle.value % 360f;
             m_Material.SetFloat(ShaderIDs.Angle, Mathf.Deg2Rad * angle);
-            m_Material.SetFloat(ShaderIDs.Speed, speed.value);
+            m_Material.SetFloat(ShaderIDs.ShaderTime, m_ShaderTime);
             // ignore automated shifting if manually shifting
             float shiftAmount = manualShift.value ? 0 : shiftSize.value;
             m_Material.SetFloat(ShaderIDs.ShiftSize, shiftAmount);
@@ -150,10 +155,12 @@ namespace sp4ghet
             m_Material.SetVector(ShaderIDs.ShiftOverride, shiftOverride);
             int fbmOctaves = manualShift.value ? 0 : shiftFbmOctaves.value;
             m_Material.SetInt(ShaderIDs.ShiftFbmOctaves, fbmOctaves);
+            m_Material.SetFloat(ShaderIDs.ChromAbIntensity, chromabIntensity.value);
 
-            m_Material.SetFloat(ShaderIDs.CutOffSharpness, cutoffSharpness.value);
+            m_Material.SetFloat(ShaderIDs.CutOffSharpness, Mathf.Max(0f, cutoffSharpness.value));
             m_Material.SetVector(ShaderIDs.CutOffCenter, new Vector4(cutoffCenter.value.x, cutoffCenter.value.y, 0f, 0f));
             HDUtils.DrawFullScreen(cmd, m_Material, destination, shaderPassId: 0);
+
         }
 
         public override void Cleanup()
@@ -165,7 +172,6 @@ namespace sp4ghet
             m_BlurXBuffer = null;
             m_BlurYBuffer?.Release();
             m_BlurYBuffer = null;
-            Debug.Log("Cleaning up");
         }
     }
 

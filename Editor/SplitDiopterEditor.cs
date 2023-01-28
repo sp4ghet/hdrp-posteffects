@@ -21,6 +21,7 @@ namespace sp4ghet
         SerializedDataParameter cutoffAngle;
         SerializedDataParameter cutoffSharpness;
         SerializedDataParameter cutoffCenter;
+        SerializedDataParameter chromabIntensity;
 
         public override void OnEnable()
         {
@@ -38,6 +39,7 @@ namespace sp4ghet
             cutoffSharpness = Unpack(o.Find(x => x.cutoffSharpness));
             cutoffCenter = Unpack(o.Find(x => x.cutoffCenter));
             fastBlur = Unpack(o.Find(x => x.fastBlur));
+            chromabIntensity = Unpack(o.Find(x => x.chromabIntensity));
         }
 
         public override void OnInspectorGUI()
@@ -60,6 +62,7 @@ namespace sp4ghet
             PropertyField(cutoffAngle);
             PropertyField(cutoffSharpness);
             PropertyField(cutoffCenter);
+            PropertyField(chromabIntensity);
         }
 
     }
