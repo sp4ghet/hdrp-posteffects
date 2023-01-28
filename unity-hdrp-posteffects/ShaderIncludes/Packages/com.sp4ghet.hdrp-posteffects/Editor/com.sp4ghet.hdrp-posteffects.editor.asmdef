@@ -1,0 +1,19 @@
+{
+    "name": "com.sp4ghet.hdrp-posteffects.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8c1616390ff92a41a13f0a8e9435975",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:3eae0364be2026648bf74846acb8a731",
+        "GUID:78bd2ddd6e276394a9615c203e574844"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

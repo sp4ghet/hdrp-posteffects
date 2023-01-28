@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7339467347366408901
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SplitDiopter
+  m_EditorClassIdentifier: com.sp4ghet.hdrp-posteffects.runtime::SplitDiopter
+  active: 1
+  <displayName>k__BackingField: 
+  m_IsInitialized: 0
+  typeName: 
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  blurSigma:
+    m_OverrideState: 0
+    m_Value: 10
+  blurSize:
+    m_OverrideState: 0
+    m_Value: 10
+  speed:
+    m_OverrideState: 0
+    m_Value: 1
+  shiftSize:
+    m_OverrideState: 0
+    m_Value: 0.04
+  manualShift:
+    m_OverrideState: 0
+    m_Value: 0
+  shiftValue:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  cutoffAngle:
+    m_OverrideState: 0
+    m_Value: 0
+  cutoffSharpness:
+    m_OverrideState: 0
+    m_Value: 15
+  cutoffCenter:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  m_Material: {fileID: 0}
+  m_BlurMat: {fileID: 0}
+--- !u!114 &-1390549238817015151
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293f144f1211cde4fbb8fa1f650862ac, type: 3}
+  m_Name: MirageEffect
+  m_EditorClassIdentifier: 
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.311
+  yCenter:
+    m_OverrideState: 1
+    m_Value: 0.2
+  cNoiseScale:
+    m_OverrideState: 1
+    m_Value: 0.8
+  pNoiseScale:
+    m_OverrideState: 1
+    m_Value: 0.4
+  wigglePace:
+    m_OverrideState: 1
+    m_Value: 6
+  updraft:
+    m_OverrideState: 1
+    m_Value: 10
+  narrowness:
+    m_OverrideState: 1
+    m_Value: 0.3
+  depthMin:
+    m_OverrideState: 1
+    m_Value: 0
+  depthMax:
+    m_OverrideState: 1
+    m_Value: 1000
+  enableReflect:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: VolumeProfile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -1390549238817015151}
+  - {fileID: 4068599905246797308}
+--- !u!114 &4068599905246797308
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40720d3f1b5e30449916722e3fae879, type: 3}
+  m_Name: SplitDiopter
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  blurSigma:
+    m_OverrideState: 0
+    m_Value: 10
+  blurSize:
+    m_OverrideState: 0
+    m_Value: 10
+  speed:
+    m_OverrideState: 0
+    m_Value: 1
+  shiftSize:
+    m_OverrideState: 0
+    m_Value: 0.04
+  manualShift:
+    m_OverrideState: 0
+    m_Value: 0
+  shiftValue:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  cutoffAngle:
+    m_OverrideState: 0
+    m_Value: 0
+  cutoffSharpness:
+    m_OverrideState: 0
+    m_Value: 15
+  cutoffCenter:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+--- !u!114 &6396207251461516000
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SplitDiopter
+  m_EditorClassIdentifier: com.sp4ghet.hdrp-posteffects.runtime::SplitDiopter
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1
+  blurSigma:
+    m_OverrideState: 1
+    m_Value: 10
+  blurSize:
+    m_OverrideState: 1
+    m_Value: 10
+  speed:
+    m_OverrideState: 1
+    m_Value: 1
+  shiftSize:
+    m_OverrideState: 1
+    m_Value: 0.04
+  manualShift:
+    m_OverrideState: 1
+    m_Value: 0
+  shiftValue:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  cutoffAngle:
+    m_OverrideState: 1
+    m_Value: 180
+  cutoffSharpness:
+    m_OverrideState: 1
+    m_Value: 10
+  cutoffCenter:
+    m_OverrideState: 1
+    m_Value: {x: -0.4, y: 0}
