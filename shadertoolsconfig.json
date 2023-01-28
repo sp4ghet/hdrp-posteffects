@@ -1,0 +1,8 @@
+﻿{
+    "hlsl.preprocessorDefinitions": {},
+    "hlsl.additionalIncludeDirectories": [
+        ".",
+        "C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.1f1\\Editor\\Data\\CGIncludes",
+        "unity-hdrp-posteffects\\ShaderIncludes"
+    ]
+}
