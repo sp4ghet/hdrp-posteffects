@@ -47,6 +47,9 @@ float3 Blur(float2 uv, int blurSize){
     return c;
   }
 
+  float ns = cnoise(uv);
+  ns = ns*ns;
+
   float weight = 0;
   float sum = 0;
   float3 val = float3(0,0,0);
@@ -60,7 +63,7 @@ float3 Blur(float2 uv, int blurSize){
     if(all(saturate(offsetUV) != offsetUV)){
       continue;
     }
-    weight = gauss(x, y, _SigmaSquared * lum);
+    weight = gauss(x, y, _SigmaSquared * ns);
     val += SampleColor(offsetUV) * weight;
     sum += weight;
     }
@@ -76,6 +79,9 @@ float3 BlurX(float2 uv, int blurSize){
     return c;
   }
 
+  float ns = cnoise(uv);
+  ns = ns*ns;
+
   float weight = 0;
   float sum = 0;
   float3 val = float3(0,0,0);
@@ -86,7 +92,7 @@ float3 BlurX(float2 uv, int blurSize){
     if(all(saturate(offsetUV) != offsetUV)){
       continue;
     }
-    weight = gaussKern(i, _SigmaSquared);
+    weight = gaussKern(i, _SigmaSquared * ns);
     val += SampleColor(offsetUV) * weight;
     sum += weight;
   }
@@ -100,6 +106,8 @@ float3 BlurY(float2 uv, int blurSize){
   if(blurSize <= 0){
     return c;
   }
+  float ns = cnoise(uv);
+  ns = ns*ns;
 
   float weight = 0;
   float sum = 0;
@@ -111,7 +119,7 @@ float3 BlurY(float2 uv, int blurSize){
     if(all(saturate(offsetUV) != offsetUV)){
       continue;
     }
-    weight = gaussKern(i, _SigmaSquared);
+    weight = gaussKern(i, _SigmaSquared * ns);
     val += SampleBuffer(offsetUV) * weight;
     sum += weight;
   }

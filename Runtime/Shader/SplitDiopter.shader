@@ -48,8 +48,6 @@ Shader "Hidden/Shader/SplitDiopter"
     {
         UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-
-
         return float4(SplitDiopter(input.texcoord.xy), 1);
     }
 
