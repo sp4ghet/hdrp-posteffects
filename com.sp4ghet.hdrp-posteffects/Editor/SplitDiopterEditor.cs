@@ -13,7 +13,9 @@ namespace sp4ghet
         SerializedDataParameter blurSigma;
         SerializedDataParameter blurSize;
         SerializedDataParameter speed;
+        SerializedDataParameter fastBlur;
         SerializedDataParameter shiftSize;
+        SerializedDataParameter shiftFbmOctaves;
         SerializedDataParameter manualShift;
         SerializedDataParameter shiftValue;
         SerializedDataParameter cutoffAngle;
@@ -29,11 +31,13 @@ namespace sp4ghet
             blurSize = Unpack(o.Find(x => x.blurSize));
             speed = Unpack(o.Find(x => x.speed));
             shiftSize = Unpack(o.Find(x => x.shiftSize));
+            shiftFbmOctaves = Unpack(o.Find(x => x.shiftFbmOctaves));
             manualShift = Unpack(o.Find(x => x.manualShift));
             shiftValue = Unpack(o.Find(x => x.shiftValue));
             cutoffAngle = Unpack(o.Find(x => x.cutoffAngle));
             cutoffSharpness = Unpack(o.Find(x => x.cutoffSharpness));
             cutoffCenter = Unpack(o.Find(x => x.cutoffCenter));
+            fastBlur = Unpack(o.Find(x => x.fastBlur));
         }
 
         public override void OnInspectorGUI()
@@ -41,6 +45,7 @@ namespace sp4ghet
             PropertyField(intensity);
             PropertyField(blurSigma);
             PropertyField(blurSize);
+            PropertyField(fastBlur);
             PropertyField(speed);
             PropertyField(manualShift);
             if (manualShift.value.boolValue)
@@ -50,6 +55,7 @@ namespace sp4ghet
             else
             {
                 PropertyField(shiftSize);
+                PropertyField(shiftFbmOctaves);
             }
             PropertyField(cutoffAngle);
             PropertyField(cutoffSharpness);

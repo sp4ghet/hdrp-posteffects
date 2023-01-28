@@ -1,4 +1,4 @@
-name: Create UPM branches and run NPM publish
+name: Create UPM branch
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
         with:
           git-tag: ${{steps.tag.outputs.name}}
           pkg-root-dir-path: com.sp4ghet.hdrp-posteffects
-          root-files: README.md LICENSE.md CHANGELOG.md Third_Party_Notices.md
+          root-files: README.md LICENSE.md
