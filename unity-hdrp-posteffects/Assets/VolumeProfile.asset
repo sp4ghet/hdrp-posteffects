@@ -124,22 +124,22 @@ MonoBehaviour:
     m_Value: 1
   blurSigma:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 84.9
   blurSize:
     m_OverrideState: 1
-    m_Value: 25
+    m_Value: 28
   speed:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 3.38
   fastBlur:
     m_OverrideState: 1
     m_Value: 1
   shiftSize:
     m_OverrideState: 1
-    m_Value: 0.199
+    m_Value: 0.121
   shiftFbmOctaves:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 3
   manualShift:
     m_OverrideState: 1
     m_Value: 0
@@ -148,10 +148,10 @@ MonoBehaviour:
     m_Value: {x: 0.25, y: 0}
   cutoffAngle:
     m_OverrideState: 1
-    m_Value: 125.02
+    m_Value: 131.4
   cutoffSharpness:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 4
   cutoffCenter:
     m_OverrideState: 1
     m_Value: {x: -0.4, y: 0}

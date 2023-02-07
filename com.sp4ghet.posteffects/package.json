@@ -1,0 +1,16 @@
+{
+    "author": "sp4ghet",
+    "dependencies": {},
+    "description": "Miscellaneous post effects for Unity",
+    "displayName": "sp4ghet_posteffects",
+    "keywords": [
+        "unity",
+        "posteffect",
+        "postprocess"
+    ],
+    "license": "MIT",
+    "name": "com.sp4ghet.posteffects",
+    "unity": "2022.2",
+    "unityRelease": "1f1",
+    "version": "0.0.1"
+}
