@@ -47,7 +47,7 @@ HLSLINCLUDE
                     return c;
                 }
 
-                float ns = cnoise(uv);
+                float ns = cnoise(uv + _Time.x);
                 ns = ns*ns;
 
                 float weight = 0;
@@ -74,7 +74,7 @@ HLSLINCLUDE
                 if(blurSize <= 0){
                     return c;
                 }
-                float ns = cnoise(uv);
+                float ns = cnoise(uv + _Time.x);
                 ns = ns*ns;
 
                 float weight = 0;

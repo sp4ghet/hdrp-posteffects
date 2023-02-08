@@ -58,18 +58,12 @@ namespace sp4ghet
         {
             base.OnCameraSetup(cmd, ref renderingData);
             var descriptor = renderingData.cameraData.cameraTargetDescriptor;
-
+            m_CameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
         }
 
         public override void FrameCleanup(CommandBuffer cmd)
         {
             base.FrameCleanup(cmd);
-            m_BlurXBuffer?.Release();
-            m_BlurYBuffer?.Release();
-            m_tempColorTarget?.Release();
-            m_BlurXBuffer = null;
-            m_BlurYBuffer = null;
-            m_tempColorTarget = null;
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -124,8 +118,6 @@ namespace sp4ghet
                     cmd.SetRenderTarget(ShaderIDs.BlurSourceTexture);
                     cmd.Blit(ShaderIDs.MainTex, ShaderIDs.BlurSourceTexture, m_BlurMat, m_BlurMat.FindPass("BlurX"));
 
-
-
                     cmd.SetRenderTarget(ShaderIDs.BlurTexture);
                     cmd.Blit(ShaderIDs.BlurSourceTexture, ShaderIDs.BlurTexture, m_BlurMat, m_BlurMat.FindPass("BlurY"));
                 }
@@ -153,8 +145,7 @@ namespace sp4ghet
 
                 m_Material.SetFloat(ShaderIDs.CutOffSharpness, Mathf.Max(0f, m_component.cutoffSharpness.value));
                 m_Material.SetVector(ShaderIDs.CutOffCenter, new Vector4(m_component.cutoffCenter.value.x, m_component.cutoffCenter.value.y, 0f, 0f));
-                Blitter.BlitCameraTexture(cmd, m_CameraColorTarget, m_CameraColorTarget, m_Material, 0);
-
+                cmd.Blit(ShaderIDs.MainTex, m_CameraColorTarget.nameID, m_Material, 0);
             }
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
@@ -162,6 +153,12 @@ namespace sp4ghet
             // cmd.ReleaseTemporaryRT(ShaderIDs.MainTex);
             // cmd.ReleaseTemporaryRT(ShaderIDs.BlurTexture);
             // cmd.ReleaseTemporaryRT(ShaderIDs.BlurSourceTexture);
+            m_BlurXBuffer?.Release();
+            m_BlurYBuffer?.Release();
+            m_tempColorTarget?.Release();
+            m_BlurXBuffer = null;
+            m_BlurYBuffer = null;
+            m_tempColorTarget = null;
 
             CommandBufferPool.Release(cmd);
 

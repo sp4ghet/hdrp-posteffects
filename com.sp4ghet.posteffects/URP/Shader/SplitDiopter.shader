@@ -11,7 +11,10 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             "RenderPipeline" = "UniversalPipeline"
         }
         LOD 100
-        ZWrite Off Cull Off
+        ZWrite Off
+        Cull Off
+        ZTest Always
+        Blend Off
 
 		Pass
 		{
@@ -27,8 +30,10 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             #include "Packages/com.sp4ghet.posteffects/ShaderIncludes/ShaderLib/Noise.hlsl"
 
             TEXTURE2D_X(_CameraOpaqueTexture);
+            TEXTURE2D_X(_MainTex);
             TEXTURE2D_X(_BlurTexture);
             SAMPLER(sampler_CameraOpaqueTexture);
+            SAMPLER(sampler_MainTex);
             SAMPLER(sampler_BlurTexture);
 
 			float _Intensity;
@@ -42,7 +47,7 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             float _ShaderTime;
 
             float3 SampleColor(float2 uv){
-                return SAMPLE_TEXTURE2D(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, uv).xyz;
+                return SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).xyz;
             }
 
             float3 SampleBlurred(float2 uv){
