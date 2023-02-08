@@ -49,15 +49,6 @@ Shader "Hidden/Shader/MirageEffect"
         // Note that if HDUtils.DrawFullScreen is not used to render the post process, you don't need to call ClampAndScaleUVForBilinearPostProcessTexture.
         float2 uv = input.texcoord.xy;
 
-        float yCenter = 0.3;
-        float amplitude = 0.8;
-        float CNoiseScale = 0.5;
-        float PNoiseScale = 0.4;
-        float narrowness = 0.6;
-        float updraft = 6;
-        float wiggle_pace = 3;
-        float depth_min = 0;
-        float depth_max = 1;
         bool enable_reflect = _EnableReflect == 1;
         float3 color = mirage(uv, _YCenter, _Intensity, _CNoiseScale, _PNoiseScale, _Narrowness, _Updraft, _WigglePace, _DepthMin, _DepthMax, enable_reflect);
 

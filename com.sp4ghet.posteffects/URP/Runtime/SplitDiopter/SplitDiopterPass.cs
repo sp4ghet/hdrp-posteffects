@@ -80,24 +80,6 @@ namespace sp4ghet
                 return;
             }
 
-            var camera = cameraData.camera;
-            const GraphicsFormat rtFormat = GraphicsFormat.R16G16B16A16_SFloat;
-            if (m_tempColorTarget == null)
-            {
-                m_tempColorTarget = RTHandles.Alloc(camera.pixelWidth, camera.pixelHeight, colorFormat: rtFormat, name: "TempTarget", enableRandomWrite: true);
-            }
-
-            if (m_BlurYBuffer == null)
-            {
-                m_BlurYBuffer = RTHandles.Alloc(camera.pixelWidth, camera.pixelHeight, colorFormat: rtFormat, name: "BlurYBuffer", enableRandomWrite: true);
-            }
-
-            // only use XBuffer if we need it
-            if (m_component.fastBlur.value && (m_BlurXBuffer == null))
-            {
-                m_BlurXBuffer = RTHandles.Alloc(camera.pixelWidth, camera.pixelHeight, colorFormat: rtFormat, name: "BlurXBuffer", enableRandomWrite: true);
-            }
-
             CommandBuffer cmd = CommandBufferPool.Get();
             using (new ProfilingScope(cmd, m_ProfilingSampler))
             {
@@ -120,6 +102,8 @@ namespace sp4ghet
 
                     cmd.SetRenderTarget(ShaderIDs.BlurTexture);
                     cmd.Blit(ShaderIDs.BlurSourceTexture, ShaderIDs.BlurTexture, m_BlurMat, m_BlurMat.FindPass("BlurY"));
+
+                    cmd.ReleaseTemporaryRT(ShaderIDs.BlurSourceTexture);
                 }
                 else
                 {
@@ -146,19 +130,14 @@ namespace sp4ghet
                 m_Material.SetFloat(ShaderIDs.CutOffSharpness, Mathf.Max(0f, m_component.cutoffSharpness.value));
                 m_Material.SetVector(ShaderIDs.CutOffCenter, new Vector4(m_component.cutoffCenter.value.x, m_component.cutoffCenter.value.y, 0f, 0f));
                 cmd.Blit(ShaderIDs.MainTex, m_CameraColorTarget.nameID, m_Material, 0);
+
+
+                cmd.ReleaseTemporaryRT(ShaderIDs.MainTex);
+                cmd.ReleaseTemporaryRT(ShaderIDs.BlurTexture);
             }
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
 
-            // cmd.ReleaseTemporaryRT(ShaderIDs.MainTex);
-            // cmd.ReleaseTemporaryRT(ShaderIDs.BlurTexture);
-            // cmd.ReleaseTemporaryRT(ShaderIDs.BlurSourceTexture);
-            m_BlurXBuffer?.Release();
-            m_BlurYBuffer?.Release();
-            m_tempColorTarget?.Release();
-            m_BlurXBuffer = null;
-            m_BlurYBuffer = null;
-            m_tempColorTarget = null;
 
             CommandBufferPool.Release(cmd);
 
