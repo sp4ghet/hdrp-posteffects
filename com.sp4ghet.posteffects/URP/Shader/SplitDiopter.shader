@@ -58,7 +58,10 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             float rand(float n){return frac(sin(n) * 43758.5453123);}
 
             float vignette(float2 pt, float strength){
-                return pow(1.0 - length(pt), strength);
+                float invAspect = _ScreenParams.y / _ScreenParams.x;
+                pt = abs(pt) - (float2(1.0,invAspect) - 0.05);
+                float boxSdf = length(max(pt, 0.0)) + min(0.0, max(pt.x, pt.y));
+                return smoothstep(0.04, 0.0, boxSdf);
             }
 
             float2 noise(float p){
