@@ -87,8 +87,9 @@ namespace sp4ghet
                 descriptor.depthStencilFormat = GraphicsFormat.None;
                 descriptor.depthBufferBits = 0;
 
+                m_CameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
                 cmd.GetTemporaryRT(ShaderIDs.MainTex, descriptor);
-                cmd.Blit(m_CameraColorTarget, ShaderIDs.MainTex);
+                cmd.Blit(m_CameraColorTarget.nameID, ShaderIDs.MainTex);
 
                 // BlurPass
                 m_BlurMat.SetInt(ShaderIDs.BlurSize, m_component.blurSize.value);
@@ -102,8 +103,6 @@ namespace sp4ghet
 
                     cmd.SetRenderTarget(ShaderIDs.BlurTexture);
                     cmd.Blit(ShaderIDs.BlurSourceTexture, ShaderIDs.BlurTexture, m_BlurMat, m_BlurMat.FindPass("BlurY"));
-
-                    cmd.ReleaseTemporaryRT(ShaderIDs.BlurSourceTexture);
                 }
                 else
                 {
@@ -130,10 +129,6 @@ namespace sp4ghet
                 m_Material.SetFloat(ShaderIDs.CutOffSharpness, Mathf.Max(0f, m_component.cutoffSharpness.value));
                 m_Material.SetVector(ShaderIDs.CutOffCenter, new Vector4(m_component.cutoffCenter.value.x, m_component.cutoffCenter.value.y, 0f, 0f));
                 cmd.Blit(ShaderIDs.MainTex, m_CameraColorTarget.nameID, m_Material, 0);
-
-
-                cmd.ReleaseTemporaryRT(ShaderIDs.MainTex);
-                cmd.ReleaseTemporaryRT(ShaderIDs.BlurTexture);
             }
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
