@@ -45,6 +45,7 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             float2 _CutOffCenter;
             float _ChromAbIntensity;
             float _ShaderTime;
+            float _BlurVigStrength;
 
             float3 SampleColor(float2 uv){
                 return SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv).xyz;
@@ -55,6 +56,10 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             }
 
             float rand(float n){return frac(sin(n) * 43758.5453123);}
+
+            float vignette(float2 pt, float strength){
+                return pow(1.0 - length(pt), strength);
+            }
 
             float2 noise(float p){
                 float id = floor(p);
@@ -92,11 +97,12 @@ Shader "Hidden/Shader/URP/SplitDiopter"
                 offset -= _ShiftOverride;
                 pt += offset;
 
+                float vig = vignette(pt, _BlurVigStrength);
                 float2 uvr = pt2uv(pt);
                 float2 uvg = pt2uv(pt + _ChromAbIntensity);
                 float2 uvb = pt2uv(pt - _ChromAbIntensity);
                 float3 blur =  float3(SampleBlurred(uvr).r, SampleBlurred(uvg).g, SampleBlurred(uvb).b);
-                float mask = saturate(LUMINANCE(blur));
+                float mask = saturate(LUMINANCE(blur) * vig);
 
                 pt = qt;
                 pt -= _CutOffCenter;

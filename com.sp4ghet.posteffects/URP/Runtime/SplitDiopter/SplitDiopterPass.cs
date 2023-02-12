@@ -40,6 +40,7 @@ namespace sp4ghet
             internal static readonly int CutOffCenter = Shader.PropertyToID("_CutOffCenter");
             internal static readonly int ChromAbIntensity = Shader.PropertyToID("_ChromAbIntensity");
             internal static readonly int ShaderTime = Shader.PropertyToID("_ShaderTime");
+            internal static readonly int BlurVignetteStrength = Shader.PropertyToID("_BlurVigStrength");
 
         }
 
@@ -128,6 +129,9 @@ namespace sp4ghet
 
                 m_Material.SetFloat(ShaderIDs.CutOffSharpness, Mathf.Max(0f, m_component.cutoffSharpness.value));
                 m_Material.SetVector(ShaderIDs.CutOffCenter, new Vector4(m_component.cutoffCenter.value.x, m_component.cutoffCenter.value.y, 0f, 0f));
+
+                m_Material.SetFloat(ShaderIDs.BlurVignetteStrength, m_component.blurVignetteStrength.value);
+
                 cmd.Blit(ShaderIDs.MainTex, m_CameraColorTarget.nameID, m_Material, 0);
             }
             context.ExecuteCommandBuffer(cmd);

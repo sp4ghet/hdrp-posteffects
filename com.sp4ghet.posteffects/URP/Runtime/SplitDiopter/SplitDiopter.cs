@@ -46,6 +46,9 @@ namespace sp4ghet
         [Tooltip("Chromatic Aberration Intensity")]
         public ClampedFloatParameter chromabIntensity = new ClampedFloatParameter(0f, 0f, 0.015f);
 
+        [Tooltip("Blur Vignette Strength (Deal with stretched edges)")]
+        public FloatParameter blurVignetteStrength = new FloatParameter(0f);
+
         // Other 'Parameter' variables you might have
 
         // Tells when our effect should be rendered
