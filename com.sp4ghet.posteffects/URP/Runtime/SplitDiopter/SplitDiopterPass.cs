@@ -99,10 +99,8 @@ namespace sp4ghet
                 {
                     cmd.GetTemporaryRT(ShaderIDs.BlurSourceTexture, descriptor);
                     cmd.GetTemporaryRT(ShaderIDs.BlurTexture, descriptor);
-                    cmd.SetRenderTarget(ShaderIDs.BlurSourceTexture);
                     cmd.Blit(ShaderIDs.MainTex, ShaderIDs.BlurSourceTexture, m_BlurMat, m_BlurMat.FindPass("BlurX"));
 
-                    cmd.SetRenderTarget(ShaderIDs.BlurTexture);
                     cmd.Blit(ShaderIDs.BlurSourceTexture, ShaderIDs.BlurTexture, m_BlurMat, m_BlurMat.FindPass("BlurY"));
                 }
                 else
@@ -133,6 +131,9 @@ namespace sp4ghet
                 // m_Material.SetFloat(ShaderIDs.BlurVignetteStrength, m_component.blurVignetteStrength.value);
 
                 cmd.Blit(ShaderIDs.MainTex, m_CameraColorTarget.nameID, m_Material, 0);
+                cmd.ReleaseTemporaryRT(ShaderIDs.BlurSourceTexture);
+                cmd.ReleaseTemporaryRT(ShaderIDs.BlurTexture);
+                cmd.ReleaseTemporaryRT(ShaderIDs.MainTex);
             }
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
