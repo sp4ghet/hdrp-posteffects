@@ -33,7 +33,7 @@ namespace sp4ghet
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
             base.OnCameraSetup(cmd, ref renderingData);
-            m_CameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
+
         }
 
         static int maintexID = Shader.PropertyToID("_MainTex");
@@ -41,6 +41,7 @@ namespace sp4ghet
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             var cameraData = renderingData.cameraData;
+            m_CameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
             if ((renderingData.cameraData.cameraType & (CameraType.Game | CameraType.SceneView)) == 0)
                 return;
             if (m_Material == null)

@@ -22,8 +22,26 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+            Varyings vert(Attributes input)
+            {
+                Varyings output;
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-			#pragma vertex Vert
+            #if SHADER_API_GLES
+                float4 pos = input.positionOS;
+                float2 uv  = input.uv;
+            #else
+                float4 pos = GetFullScreenTriangleVertexPosition(input.vertexID);
+                float2 uv  = GetFullScreenTriangleTexCoord(input.vertexID);
+            #endif
+
+                output.positionCS = pos;
+                output.texcoord   = uv;
+                return output;
+            }
+
+			#pragma vertex vert
 			#pragma fragment frag
 
             #include "Packages/com.sp4ghet.posteffects/ShaderIncludes/ShaderLib/Common.hlsl"
@@ -65,7 +83,7 @@ Shader "Hidden/Shader/URP/SplitDiopter"
             }
 
             float2 noise(float p){
-                float id = floor(p);
+            float id = floor(p);
             float t = frac(p);
             float p0 = rand(id);
             float p1 = rand(id + 1);

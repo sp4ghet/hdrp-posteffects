@@ -8,6 +8,24 @@ Shader "Hidden/Shader/URP/Mirage"
     HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+        Varyings vert(Attributes input)
+        {
+            Varyings output;
+            UNITY_SETUP_INSTANCE_ID(input);
+            UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+
+        #if SHADER_API_GLES
+            float4 pos = input.positionOS;
+            float2 uv  = input.uv;
+        #else
+            float4 pos = GetFullScreenTriangleVertexPosition(input.vertexID);
+            float2 uv  = GetFullScreenTriangleTexCoord(input.vertexID);
+        #endif
+
+            output.positionCS = pos;
+            output.texcoord   = uv;
+            return output;
+        }
         #include "Packages/com.sp4ghet.posteffects/ShaderIncludes/ShaderLib/Common.hlsl"
         #include "Packages/com.sp4ghet.posteffects/ShaderIncludes/ShaderLib/Noise.hlsl"
 
@@ -113,7 +131,7 @@ Shader "Hidden/Shader/URP/Mirage"
 		{
             Name "Mirage"
             HLSLPROGRAM
-			#pragma vertex Vert
+			#pragma vertex vert
 			#pragma fragment frag
 			ENDHLSL
 		}
